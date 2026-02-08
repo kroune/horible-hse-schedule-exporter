@@ -1,6 +1,7 @@
+package model
+
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class Lesson(
@@ -61,20 +62,3 @@ data class LecturerProfile(
     val description: String
 )
 
-// Пример использования
-fun main() {
-    val jsonString = """[ваш JSON здесь]"""
-
-    val json = Json {
-        ignoreUnknownKeys = true
-        coerceInputValues = true
-    }
-
-    val lessons = json.decodeFromString<List<Lesson>>(jsonString)
-    lessons.forEach { lesson ->
-        println("Discipline: ${lesson.discipline}")
-        println("Lecturer: ${lesson.lecturerProfiles.firstOrNull()?.fullName}")
-        println("Time: ${lesson.dateStart} - ${lesson.dateEnd}")
-        println("---")
-    }
-}

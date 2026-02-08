@@ -1,27 +1,42 @@
-val kotlin_version: String by project
-val logback_version: String by project
-
 plugins {
-    kotlin("jvm") version "2.1.10"
-    id("io.ktor.plugin") version "3.2.3"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ktor)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "io.github.kroune"
 version = "0.0.1"
 
 application {
-    mainClass = "io.ktor.server.netty.EngineMain"
+    mainClass = "io.github.kroune.ApplicationKt"
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    implementation("io.ktor:ktor-client-cio:3.2.3")
-    implementation("io.ktor:ktor-client-auth:3.2.3")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-    implementation("com.google.api-client:google-api-client:2.2.0")
-    implementation("com.google.oauth-client:google-oauth-client-jetty:1.34.1")
-    implementation("com.google.apis:google-api-services-calendar:v3-rev20220715-2.0.0")
+    // Ktor client
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.auth)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+    // Kotlinx
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Google Calendar API
+    implementation(libs.google.auth.oauth2)
+    implementation(libs.google.api.calendar)
+
+    // Configuration
+    implementation(libs.typesafe.config)
+
+    // Logging
+    implementation(libs.logback.classic)
+
+    // Testing
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
